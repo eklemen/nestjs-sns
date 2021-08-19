@@ -1,5 +1,4 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
-import { SNSClientConfig } from '@aws-sdk/client-sns';
 import { SnsService } from './sns.service';
 import { SNS_OPTIONS } from './sns.constants';
 import * as optionTypes from './interfaces';
@@ -7,27 +6,31 @@ import * as optionTypes from './interfaces';
 @Global()
 @Module({})
 export class SnsModule {
-  static register(options: SNSClientConfig): DynamicModule {
+  static register(options: optionTypes.SnsOptions): DynamicModule {
+    const { isGlobal, ...snsOptions} = options;
     return {
       module: SnsModule,
       providers: [
         {
           provide: SNS_OPTIONS,
-          useValue: options,
+          useValue: snsOptions,
         },
         SnsService,
       ],
       exports: [SnsService],
+      global: isGlobal,
     };
   }
 
   static registerAsync(options: optionTypes.SnsAsyncOptions): DynamicModule {
-    const asyncOpts = this.createAsyncProviders(options);
+    const { isGlobal, ...snsOptions} = options;
+    const asyncOpts = this.createAsyncProviders(snsOptions);
     return {
       module: SnsModule,
       imports: options.imports,
       providers: [SnsService, ...asyncOpts],
       exports: [SnsService],
+      global: options.isGlobal,
     };
   }
 
