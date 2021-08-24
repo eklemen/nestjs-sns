@@ -4,6 +4,7 @@ import * as sns from '@aws-sdk/client-sns';
 export interface SnsOptionsFactory {
   createSnsOptions(): Promise<sns.SNSClientConfig> | sns.SNSClientConfig;
 }
+
 export interface SnsOptions extends sns.SNSClientConfig {
   isGlobal?: boolean;
 }

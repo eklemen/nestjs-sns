@@ -1,9 +1,8 @@
-import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
+import { DynamicModule, Module, Provider } from '@nestjs/common';
 import { SnsService } from './sns.service';
 import { SNS_OPTIONS } from './sns.constants';
 import * as optionTypes from './interfaces';
 
-@Global()
 @Module({})
 export class SnsModule {
   static register(options: optionTypes.SnsOptions): DynamicModule {
