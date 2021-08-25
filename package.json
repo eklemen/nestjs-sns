@@ -7,6 +7,13 @@
   "readmeFilename": "README.md",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "keywords": [
+    "nestjs",
+    "nest",
+    "sns",
+    "aws"
+  ],
+  "repository": "eklemen/nestjs-sns",
   "files": [
     "dist/**/*",
     "*.md"

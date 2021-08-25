@@ -1,11 +1,17 @@
 # nestjs-sns
 A thin wrapper around the [@aws-sdk/client-sns](https://www.npmjs.com/package/@aws-sdk/client-sns) library to be used in NestJs applications.
 
+**Note: The only methods available out of the box are `publish` and `createTopic`. If you need additional methods you can do one of the following.**
+1. Fork this repo and do as you please
+2. Open an issue (or a PR :heart:)
+3. Manually via `this.snsService.snsClient.<SNS_METHOD>`
+
 
 ## Getting Started
 Add and initialize the global module to your App.module.ts
 
 ### Using `.registerAsync()` for dynamic values (preferred)
+
 ```typescript
 import { SnsModule } from 'nestjs-sns';
 
@@ -19,8 +25,8 @@ import { SnsModule } from 'nestjs-sns';
         region: configService.get<string>('AWS_REGION'),
       }),
       inject: [ConfigService],
+      isGlobal: true,
     }),
-    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -48,7 +54,7 @@ export class AppModule {}
 ```
 
 ### Usage
-**NOTE: Since this module is global, you do not need to import this service into other modules that belong to App.module**
+**NOTE: If using the `isGlobal: true` option, you do not need to import this service into other modules that belong to App.module**
 
 ```typescript
 import { Controller, Get } from '@nestjs/common';
